@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>Категория</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="../static/css/mainstyle.css" th:href="@{/css/mainstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body class="bg-light">
+
+<header th:insert="fragments/Header.html :: header"></header>
+<br>
+<main class="container mt-5 mb-5">
+    <form method="post">
+        <a href="/categorys" class="btn">Перейти в список категорий</a>
+        <a href="/" class="btn">Перейти на начальную страницу</a>
+        <a th:href="@{/categorys/delete(id = ${category.uid})}" class="btn">Удалить категорию</a>
+        <div>
+            УИД категории:<br>
+            <input type="text" readonly name="uid" th:value="${category.uid}"><br>
+        </div>
+        <div>
+            Идентификатор категории:<br>
+            <input type="text" readonly name="id" th:value="${category.id}"><br>
+        </div>
+        <div>
+            Наименование категории:<br>
+            <input type="text" name="name" th:value="${category.name}"><br>
+        </div>
+        <div>
+            Родительская категория:<br>
+            <select id="parentId" name="parentId">
+                <option value=""></option>
+                <option th:each="category : ${categorys}" th:value="${category.uid}" th:text="${category.name} + ' : ' + ${category.uid}"
+                        th:selected="${category.uid} == ${parentUid}"></option>
+            </select>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+
+    </form>
+</main>
+</body>
+</html>

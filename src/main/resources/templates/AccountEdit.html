@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <title>Счет</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="../static/css/mainstyle.css" th:href="@{/css/mainstyle.css}" rel="stylesheet" type="text/css">
+</head>
+<body class="bg-light">
+
+<header th:insert="fragments/Header.html :: header"></header>
+<br>
+<main class="container mt-5 mb-5">
+    <form method="post">
+        <a href="/accounts" class="btn">Перейти в список счетов</a>
+        <a href="/" class="btn">Перейти на начальную страницу</a>
+        <a th:href="@{/accounts/delete(id = ${account.id})}" class="btn">Удалить счет</a>
+        <div>
+            Идентификатор счета:<br>
+            <input type="text" readonly name="id" th:value="${account.id}"><br>
+        </div>
+        <div>
+            Наименование счета:<br>
+            <input type="text" name="name" th:value="${account.name}"><br>
+        </div>
+        <div>
+            Валюта счета:<br>
+            <select id="currencyId" name="currencyId">
+                <option th:each="currency : ${currencys}" th:value="${currency.id}" th:text="${currency.name}"
+                        th:selected="${currency.id} == ${account.currency.id}"></option>
+            </select>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+
+    </form>
+</main>
+</body>
+</html>
